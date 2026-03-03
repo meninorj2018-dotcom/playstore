@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jadvia</title>
+  <meta name="description" content="Página de distribuição do app Jadvia (não afiliada a lojas de terceiros)." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- Backdrop -->
+  <div id="backdrop" class="backdrop hidden" aria-hidden="true"></div>
+
+  <!-- Drawer -->
+  <aside id="drawer" class="drawer" aria-label="Menu lateral">
+    <div class="drawer-header">
+      <div class="drawer-brand">
+        <img class="drawer-appicon" src="brand/app-icon.png" alt="Ícone do app" />
+        <div>
+          <div class="drawer-title">Jadvia</div>
+          <div class="drawer-sub">Entregas • Rastreamento</div>
+        </div>
+      </div>
+      <button id="closeDrawer" class="icon-btn" aria-label="Fechar menu">✕</button>
+    </div>
+
+    <nav class="drawer-nav">
+      <button class="nav-item" id="navGoApp">Página do app</button>
+      <button class="nav-item" id="navGoShots">Capturas</button>
+      <button class="nav-item" id="navGoReviews">Avaliações</button>
+      <button class="nav-item" id="navClearSearch">Limpar busca</button>
+      <a class="nav-link" id="navSupport" href="#" target="_blank" rel="noreferrer">Suporte</a>
+      <a class="nav-link" id="navPrivacy" href="#" target="_blank" rel="noreferrer">Privacidade</a>
+    </nav>
+
+    <div class="drawer-footer">
+      Dica: <strong>Ctrl+K</strong> foca a busca. <strong>Esc</strong> fecha o menu.
+    </div>
+  </aside>
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <button id="openDrawer" class="icon-btn" aria-label="Abrir menu">
+        <span class="hamburger" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </span>
+      </button>
+
+      <!-- Logo topo editável -->
+      <div class="topbrand" aria-label="Marca">
+        <img src="playstore.png" class="top-logo" alt="Logo do topo (editável)" />
+      </div>
+    </div>
+
+    <div class="topbar-right">
+      <div class="search" role="search" aria-label="Pesquisar apps">
+        <span class="search-icon" aria-hidden="true">⌕</span>
+        <input id="searchInput" type="text" placeholder="Pesquisar apps (Ctrl+K)" aria-label="Pesquisar apps" />
+        <button id="micBtn" class="mic-btn" aria-label="Pesquisar por voz" title="Pesquisar por voz">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 14a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v5a3 3 0 0 0 3 3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M19 11a7 7 0 0 1-14 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M12 18v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M8 21h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Results -->
+    <section class="card">
+      <div class="card-head">
+        <div>
+          <div class="card-title">Resultados</div>
+          <div id="resultsHint" class="muted">Digite para pesquisar por nome/categoria.</div>
+        </div>
+        <div class="pill" aria-label="Filtro ativo">Apps</div>
+      </div>
+
+      <div id="resultsList" class="results"></div>
+      <div id="emptyState" class="empty hidden"></div>
+    </section>
+
+    <!-- App Detail -->
+    <section id="appDetail" class="card app-card">
+      <div class="app-top">
+        <img class="app-icon" src="logo-jadlog-icon-1024.png" alt="Ícone do Jadvia (editável)" />
+        <div class="app-meta">
+          <div class="app-name">Jadvia</div>
+          <div class="app-dev">Jadvia Entregas</div>
+          <div class="app-cat">Entregas • Rastreamento • Logística</div>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-big">4,6</div>
+          <div class="stat-sub">★ 92 mil</div>
+        </div>
+        <div class="stat">
+          <div class="stat-big">5M+</div>
+          <div class="stat-sub">downloads</div>
+        </div>
+        <div class="stat">
+          <div class="stat-big">Livre</div>
+          <div class="stat-sub">classificação</div>
+        </div>
+        <div class="stat">
+          <div class="stat-big">12 MB</div>
+          <div class="stat-sub">tamanho</div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="installBtn" class="btn-primary">Instalar</button>
+        <button id="shareBtn" class="btn-secondary">Compartilhar</button>
+      </div>
+
+      <!-- Download UI -->
+      <div id="downloadUI" class="download-box hidden">
+        <div class="progress" aria-label="Progresso de download">
+          <div id="progressBar"></div>
+        </div>
+        <div class="progress-row">
+          <div id="progressText" class="progress-text">Baixando… 0%</div>
+          <div class="progress-hint">Aguarde…</div>
+        </div>
+      </div>
+
+      <div class="note" id="installNote">
+        Ao tocar em <strong>Instalar</strong> você será redirecionado para o download e verá instruções de instalação.
+      </div>
+
+      <h2 id="shots" class="h2">Capturas</h2>
+      <div class="shots">
+        <a href="pedido.png" target="_blank" rel="noreferrer"><img src="pedido.png" alt="pedido.png" /></a>
+        <a href="Rastreamento de entrega Jadvia.png" target="_blank" rel="noreferrer"><img src="Rastreamento de entrega Jadvia.png" alt="Captura 2" /></a>
+        <a href="Acompanhamento de entrega no smartphone.png" target="_blank" rel="noreferrer"><img src="Acompanhamento de entrega no smartphone.png" alt="Captura 3" /></a>
+      </div>
+      <div class="muted small">Troque as imagens em <code>shots/</code>.</div>
+
+      <h2 class="h2">Sobre este app</h2>
+      <p class="text">
+        Acompanhe suas entregas em tempo real, consulte status do pedido e receba atualizações.
+        Rastreie códigos, visualize etapas e simplifique o controle de encomendas.
+      </p>
+
+      <h2 id="reviews" class="h2">Avaliações</h2>
+      <div class="rating">
+        <div class="rating-left">
+          <div class="rating-score">4,6</div>
+          <div class="stars" aria-label="4,6 de 5">★★★★☆</div>
+          <div class="muted small">92.000 avaliações</div>
+        </div>
+        <div class="rating-bars" aria-hidden="true">
+          <div class="bar"><span style="width:78%"></span></div>
+          <div class="bar"><span style="width:16%"></span></div>
+          <div class="bar"><span style="width:4%"></span></div>
+          <div class="bar"><span style="width:2%"></span></div>
+          <div class="bar"><span style="width:1%"></span></div>
+        </div>
+      </div>
+
+      <div class="review">
+        <div class="review-head">
+          <div class="avatar">C</div>
+          <div>
+            <div class="review-name">Carlos M.</div>
+            <div class="review-meta muted small">★★★★★ • 18 fev 2026</div>
+          </div>
+        </div>
+        <div class="review-text">Rastreamento rápido e notificações úteis. Melhorou meu controle das entregas.</div>
+      </div>
+
+      <footer class="footer">
+        Página de distribuição do app. Não afiliada a lojas de terceiros.
+      </footer>
+    </section>
+  </main>
+
+  <!-- Modal de Instalação -->
+  <div id="installModal" class="modal hidden" role="dialog" aria-modal="true" aria-label="Instruções de instalação">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div class="modal-title">Instalando Jadvia</div>
+        <button id="closeModal" class="icon-btn" aria-label="Fechar">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-progress">
+          <div class="modal-spinner" aria-hidden="true"></div>
+          <div>
+            <div id="modalStatus" class="modal-status">Preparando instalação…</div>
+            <div class="muted small">Se aparecer um aviso do Android, siga os passos abaixo.</div>
+          </div>
+        </div>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-text">
+              Abra o arquivo baixado <strong>Jadvia.apk</strong> (notificação ou pasta Downloads).
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-text">
+              Se o Android bloquear, toque em <strong>Configurações</strong> e permita
+              <strong>“Instalar apps desconhecidos”</strong> para o seu navegador.
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-text">
+              Volte e toque em <strong>Instalar</strong> para concluir.
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button id="modalOk" class="btn-primary">Entendi</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
